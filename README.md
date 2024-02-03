@@ -1,8 +1,12 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13655493&assignment_repo_type=AssignmentRepo)
+<!-- [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13655493&assignment_repo_type=AssignmentRepo) -->
 
-![alt text](./Deployment/IKN_LOGO.JPG)
-
+<!-- ![](./Deployment/IKN_LOGO.JPG) -->
 # About IKNproperty
+
+<center>
+    <img src="./Deployment/IKN_LOGO.JPG" width="350" height="200">
+</center>
+<br>
 Leveraging the most recent price data, this application serves as a price estimation tool designed to assist developers and homeowners in estimating and determining the value of their residential properties in IKN (Ibu Kota Nusantara).
 
 # Project's Background
@@ -20,3 +24,4 @@ The Indonesian government's decision to relocate the national capital to the Kal
     - Gilbert Kurniawan Hariyanto | [LinkedIn] | [Github]
     - Ade William Tabrani | [LinkedIn] | [Github]
     - Mardhya Malik Nurbani | [LinkedIn] | [Github]
+
