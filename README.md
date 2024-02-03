@@ -20,8 +20,8 @@ The Indonesian government's decision to relocate the national capital to the Kal
 
 
 # Meet our team
-    - Masayu Anandita Prameswari | [LinkedIn] | [Github]
-    - Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)
-    - Ade William Tabrani | [LinkedIn] | [Github]
-    - Mardhya Malik Nurbani | [LinkedIn] | [Github]
+ - Masayu Anandita Prameswari | [LinkedIn] | [Github]
+ - Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)
+ - Ade William Tabrani | [LinkedIn] | [Github]
+ - Mardhya Malik Nurbani | [LinkedIn] | [Github]
 
