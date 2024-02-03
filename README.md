@@ -3,9 +3,9 @@
 <!-- ![](./Deployment/IKN_LOGO.JPG) -->
 # About IKNproperty
 
-<center>
+<p align="center">
     <img src="./Deployment/IKN_LOGO.JPG" width="350" height="200">
-</center>
+</p>
 <br>
 Leveraging the most recent price data, this application serves as a price estimation tool designed to assist developers and homeowners in estimating and determining the value of their residential properties in IKN (Ibu Kota Nusantara).
 
