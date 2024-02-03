@@ -10,7 +10,7 @@
 Leveraging the most recent price data, this application serves as a price estimation tool designed to assist developers and homeowners in estimating and determining the value of their residential properties in IKN (Ibu Kota Nusantara).
 
 # Project's Background
-The Indonesian government's decision to relocate the national capital to the Kalimantan area, with the new capital named IKN (Ibu Kota Negara), will likely lead to significant changes in the region's real estate market. The goal is to develop a prediction model application sthat can accurately estimate house prices in the IKN area. This application will be valuable for both prospective homebuyers and real estate investors seeking insights into property values in the emerging capital city.
+The Indonesian government's decision to relocate the national capital to the Kalimantan area, with the new capital named IKN (Ibu Kota Negara), will likely lead to significant changes in the region's real estate market. The goal is to develop a prediction model application that can accurately estimate house prices in the IKN area. This application will be valuable for both prospective homebuyers and real estate investors seeking insights into property values in the emerging capital city.
 
 # About Dataset
 
@@ -21,7 +21,7 @@ The Indonesian government's decision to relocate the national capital to the Kal
 
 # Meet our team
     - Masayu Anandita Prameswari | [LinkedIn] | [Github]
-    - Gilbert Kurniawan Hariyanto | [LinkedIn] | [Github]
+    - Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)
     - Ade William Tabrani | [LinkedIn] | [Github]
     - Mardhya Malik Nurbani | [LinkedIn] | [Github]
 
