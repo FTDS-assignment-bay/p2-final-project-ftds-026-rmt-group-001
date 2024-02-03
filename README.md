@@ -1,6 +1,6 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13655493&assignment_repo_type=AssignmentRepo)
 
-![alt text](./img/IKN_LOGO.JPG)
+![alt text](./Deployment/IKN_LOGO.JPG)
 
 # About IKNproperty
 Leveraging the most recent price data, this application serves as a price estimation tool designed to assist developers and homeowners in estimating and determining the value of their residential properties in IKN (Ibu Kota Nusantara).
