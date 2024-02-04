@@ -10,7 +10,7 @@ if page == 'Homepage':
     st.header('')
 
     #Tambahkan gambar
-    image = Image.open('IKN_LOGO.jpg')
+    image = Image.open('IKN_LOGO2.jpg')
     st.image(image) 
     st.caption('Please check our github repository [here!](https://github.com/FTDS-assignment-bay/p2-final-project-ftds-026-rmt-group-001)')
     st.markdown('----')
