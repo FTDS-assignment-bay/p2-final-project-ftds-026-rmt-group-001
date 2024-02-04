@@ -16,11 +16,11 @@ The Indonesian government's decision to relocate the national capital to the Kal
 The dataset used to build the house price prediction model for the IKN (National Capital) area is obtained through web scraping from rumah123.com . This dataset aims to capture a comprehensive view of the real estate market in the emerging capital city of Indonesia, Kalimantan. 
 
 
-# Try IKN Property here
+# Try IKN PROPERTY here
 
 
 # Meet our team
- - Masayu Anandita Prameswari | [LinkedIn] (https://www.linkedin.com/in/masayuanandita-/) | [Github] (https://github.com/masayuanandita)
+ - Masayu Anandita Prameswari | [LinkedIn](https://www.linkedin.com/in/masayuanandita-/) | [Github](https://github.com/masayuanandita)
  - Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)
  - Ade William Tabrani | [LinkedIn] | [Github]
  - Mardhya Malik Nurbani | [LinkedIn](https://www.linkedin.com/in/mnurbani/) | [Github](https://github.com/mnurbani97)
