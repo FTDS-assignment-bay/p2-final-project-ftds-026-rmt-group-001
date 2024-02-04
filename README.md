@@ -23,5 +23,5 @@ The dataset used to build the house price prediction model for the IKN (National
  - Masayu Anandita Prameswari | [LinkedIn] (https://www.linkedin.com/in/masayuanandita-/) | [Github] (https://github.com/masayuanandita)
  - Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)
  - Ade William Tabrani | [LinkedIn] | [Github]
- - Mardhya Malik Nurbani | [LinkedIn] | [Github]
+ - Mardhya Malik Nurbani | [LinkedIn](https://www.linkedin.com/in/mnurbani/) | [Github](https://github.com/mnurbani97)
 
