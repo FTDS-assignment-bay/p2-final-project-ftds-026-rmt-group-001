@@ -30,7 +30,7 @@ if page == 'Homepage':
         st.write(''' ''')
         
     with st.expander("Meet our team"):
-        st.write("- Masayu Anandita Prameswari | [LinkedIn] () | [Github] ()")
+        st.write("- Masayu Anandita Prameswari | [LinkedIn] (https://www.linkedin.com/in/masayuanandita-/) | [Github] (https://github.com/masayuanandita)")
         st.write("- Gilbert Kurniawan Hariyanto | [LinkedIn] () | [Github] ()")
         st.write("- Ade William Tabrani | [LinkedIn] () | [Github] () ")
         st.write("- Mardhya Malik Nurbani | [LinkedIn] () | [Github] ()")
