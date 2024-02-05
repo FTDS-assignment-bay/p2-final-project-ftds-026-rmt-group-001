@@ -10,7 +10,7 @@ if page == 'Homepage':
     st.header('')
 
     #Tambahkan gambar
-    image = Image.open('IKN_LOGO2.jpg')
+    image = Image.open('IKN_LOGO2.png')
     st.image(image) 
     st.caption('Please check our github repository [here!](https://github.com/FTDS-assignment-bay/p2-final-project-ftds-026-rmt-group-001)')
     st.markdown('----')
@@ -30,10 +30,10 @@ if page == 'Homepage':
         st.write(''' ''')
         
     with st.expander("Meet our team"):
-        st.write("- Masayu Anandita Prameswari | [LinkedIn] (https://www.linkedin.com/in/masayuanandita-/) | [Github] (https://github.com/masayuanandita)")
-        st.write("- Gilbert Kurniawan Hariyanto | [LinkedIn] () | [Github] ()")
+        st.write("- Masayu Anandita Prameswari | [LinkedIn](https://www.linkedin.com/in/masayuanandita-/) | [Github](https://github.com/masayuanandita)")
+        st.write("- Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)")
         st.write("- Ade William Tabrani | [LinkedIn] () | [Github] () ")
-        st.write("- Mardhya Malik Nurbani | [LinkedIn] () | [Github] ()")
+        st.write("- Mardhya Malik Nurbani | [LinkedIn](https://www.linkedin.com/in/mnurbani/) | [Github](https://github.com/mnurbani97)")
 
 elif page == 'Exploration Data Analysis':
     eda.run()
