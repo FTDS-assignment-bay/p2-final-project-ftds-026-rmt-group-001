@@ -12,7 +12,7 @@ Leveraging the most recent price data, this application serves as a price estima
 The Indonesian government's decision to relocate the national capital to the Kalimantan area, with the new capital named IKN (Ibu Kota Nusantara), a new era of development and growth is anticipated in the region. The establishment of a new capital city brings about changes in infrastructure, economic activities, and the real estate market. The objective is to create a predictive model application that can estimate house prices in the IKN area. 
 
 # About Dataset
-The dataset used to build the house price prediction model for the IKN area is obtained through web scraping from [rumah123.com] (https://www.rumah123.com/). This dataset aims to capture a comprehensive view of the real estate market in Balikpapan. 
+The dataset used to build the house price prediction model for the IKN area is obtained through web scraping from [rumah123.com](https://www.rumah123.com/). This dataset aims to capture a comprehensive view of the real estate market in Balikpapan. 
 
 
 # Try IKN PROPERTY here
