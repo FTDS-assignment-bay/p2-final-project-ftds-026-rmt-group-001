@@ -1,25 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
+import xgboost
+from joblib import load
 
 # load all files
-
-with open("model.pkl", "rb") as f: # load the model
-    model = pickle.load(f)
-    
-with open("scaler.pkl", "rb") as f:
-    scaler = pickle.load(f)
-
-with open("encoder.pkl", "rb") as f: # load the scaler
-    encoder = pickle.load(f)
-
-# with open('column_names.pkl', 'rb') as f:
-#     column_names = pickle.load(f)
-
-# Kamar Tidur', 'Kamar Mandi', 'Luas Tanah', 'Luas Bangunan', 'Daya Listrik']
-# 'Lokasi', 
-# 'Sertifikat' = 'SHM - Sertifikat Hak Milik', 'HGB - Hak Guna Bangunan', 'Lainnya (PPJB,Girik,Adat,dll)', nan
+model = load('xgb_tuned_model.joblib')
+transformer = load('transformer.joblib')
 
 def app():
     
@@ -31,90 +18,147 @@ def app():
         - This model achieved `...` score ....
         ''')
         
-        url = st.text_input('URL', 'https://www.google.com', help='The URL that will be analyzed')
-
-        daya = {1: "ISO-8859-1", 2: "UTF-8", 3: "utf-8", 4: "us-ascii", 5: "iso-8859-1", 6: "unknown", 7: "windows-1252", 8: "windows-1251"}
+        
                 
-        server_choice = {1: 'Apache', 2: 'cloudflare-nginx', 3: 'other', 4: 'Server', 5: 'GSE', 6: 'nginx', 7: 'unknown', 8: 'Microsoft-HTTPAPI/2.0', 9: 'nginx/1.8.0', 10: 'nginx/1.10.1', 11: 'Microsoft-IIS/7.5', 12: 'YouTubeFrontEnd', 13: 'Apache/2.2.22 (Debian)', 14: 'nginx/1.12.0', 15: 'Microsoft-IIS/6.0', 16: 'Apache/2.4.23 (Unix) OpenSSL/1.0.1e-fips mod_bwlimited/1.4', 17: 'Apache/2.2.14 (FreeBSD) mod_ssl/2.2.14 OpenSSL/0.9.8y DAV/2 PHP/5.2.12 with Suhosin-Patch'}
-        
-        whois_country_choice = {1: "AU", 2: "CA", 3: "ES", 4: "US", 5: "other", 6: "unknown", 7: "PA", 8: "FR", 9: "KR", 10: "CZ", 11: "JP", 12: "ru", 13: "UK", 14: "CN", 15: "GB", 16: "UY"}
-                
-        CHARSET = st.selectbox("Select Charset", options=list(charset_choice.values()), help='The character encoding standard (also called character set)')
+        sertifikat_choice = {'SHM': 'SHM - Sertifikat Hak Milik', 'HGB': 'HGB - Hak Guna Bangunan', 'Lainnya': 'Lainnya (PPJB, Girik, Adat, dll)'}
 
-        SERVER = st.selectbox("Select Server", options=list(server_choice.values()), help='The operative system of the server got from the packet response')
+        lokasi_choice = {
+            'Balikpapan Selatan': 'Balikpapan Selatan, Balikpapan',
+            'Balikpapan Utara': 'Balikpapan Utara, Balikpapan',
+            'Balikpapan Tengah': 'Balikpapan Tengah, Balikpapan',
+            'Balikpapan Baru': 'Balikpapan Baru, Balikpapan',
+            'Balikpapan Timur': 'Balikpapan Timur, Balikpapan',
+            'Damai': 'Damai, Balikpapan',
+            'Gn. Samarinda': 'Gn. Samarinda, Balikpapan',
+            'Sepinggan': 'Sepinggan, Balikpapan',
+            'Sumber Rejo': 'Sumber Rejo, Balikpapan',
+            'Balikpapan Kota': 'Balikpapan Kota, Balikpapan',
+            'Marga Sari': 'Marga Sari, Balikpapan',
+            'Gn. Sari Ilir': 'Gn. Sari Ilir, Balikpapan',
+            'Manggar': 'Manggar, Balikpapan',
+            'Batakan': 'Batakan, Balikpapan',
+            'Gunung Bahagia': 'Gunung Bahagia, Balikpapan',
+            'Balikpapan Barat': 'Balikpapan Barat, Balikpapan',
+            'Karang Joang': 'Karang Joang, Balikpapan',
+            'Manggar Baru': 'Manggar Baru, Balikpapan',
+            'Karang Rejo': 'Karang Rejo, Balikpapan',
+            'Batu Ampar': 'Batu Ampar, Balikpapan',
+            'Telaga Sari': 'Telaga Sari, Balikpapan',
+            'Klandasan Ulu': 'Klandasan Ulu, Balikpapan',
+            'Klandasan Ilir': 'Klandasan Ilir, Balikpapan',
+            'Muara Rapak': 'Muara Rapak, Balikpapan',
+            'Kariangau': 'Kariangau, Balikpapan',
+            'Baru Tengah': 'Baru Tengah, Balikpapan',
+            'Lamaru': 'Lamaru, Balikpapan',
+            'Prapatan': 'Prapatan, Balikpapan',
+            'Teritip': 'Teritip, Balikpapan',
+            'Karang Jati': 'Karang Jati, Balikpapan'
+        }
 
-        CONTENT_LENGTH = st.number_input('CONTENT_LENGTH', min_value=0, max_value=9806, value=50, help='The content size of the HTTP header')
 
-        WHOIS_COUNTRY = st.selectbox("Select Country", options=list(whois_country_choice.values()), help='The countries we got from the server response (specifically, our script used the API of Whois)')
+        sertifikat = st.selectbox("Pilih Sertifikat", options=list(sertifikat_choice.values()), help='The type of certificate of the house')
 
-        WHOIS_STATEPRO = st.selectbox("Select States", options=list(WHOIS_STATEPRO_choice.values()), help='The states we got from the server response (specifically, our script used the API of Whois)')
-    
-        kamar_tidur = st.number_input('Kamar Tidur', min_value=0, max_value=20, value=0, help='The number of bedrooms')
-        
-        kamar_mandi = st.number_input('Kamar Mandi', min_value=0, max_value=20, value=0, help='The number of bathrooms')
-        
-        luas_tanah = st.number_input('Luas Tanah', min_value=0, max_value=100000, value=0, help='The land area in square meters')
-        
-        luas_bangunan = st.number_input('Luas Bangunan', min_value=0, max_value=100000, value=0, help='The building area in square meters')
-        
+        lokasi = st.selectbox("Piluh Loasi", options=list(lokasi_choice.values()), help='The location of the house')
  
+        kamar_tidur = st.number_input('Kamar Tidur', min_value=0, max_value=30, value=2, help='The number of bedrooms')
+        
+        kamar_mandi = st.number_input('Kamar Mandi', min_value=0, max_value=120, value=2, help='The number of bathrooms')
+        
+        luas_tanah = st.number_input('Luas Tanah', min_value=0, max_value=100000, value=300, help='The land area in square meters')
+        
+        luas_bangunan = st.number_input('Luas Bangunan', min_value=0, max_value=100000, value=270, help='The building area in square meters')
+        
+        daya = st.number_input('Daya Listrik', min_value=0, max_value=22000, value=1300, help='The power capacity of the house in watt')
+
         #submit buttion
         submitted = st.form_submit_button('Predict')
+        
     
     data_inf = {
-        'CONTENT_LENGTH': CONTENT_LENGTH,
-        'CHARSET': CHARSET,
-        'SERVER': SERVER,
-        'WHOIS_COUNTRY': WHOIS_COUNTRY,
-        'WHOIS_STATEPRO': WHOIS_STATEPRO
+        'Sertifikat': sertifikat,
+        'Lokasi': lokasi,
+        'Kamar Tidur': kamar_tidur,
+        'Kamar Mandi': kamar_mandi,
+        'Luas Tanah': luas_tanah,
+        'Luas Bangunan': luas_bangunan,
+        'Daya Listrik': daya   
     }
 
-    
     data_inf = pd.DataFrame([data_inf])
 
     # logic ketika user submit
     if submitted:
-        #split between numerical and categorical columns
-        data_inf_num = data_inf[['URL_LENGTH', 'NUMBER_SPECIAL_CHARACTERS', 'CONTENT_LENGTH', 
-                                 'WHOIS_REGDATE', 'WHOIS_UPDATED_DATE', 'TCP_CONVERSATION_EXCHANGE', 
-                                 'DIST_REMOTE_TCP_PORT', 'REMOTE_IPS', 'APP_BYTES', 'SOURCE_APP_PACKETS', 
-                                 'REMOTE_APP_PACKETS', 'SOURCE_APP_BYTES', 'REMOTE_APP_BYTES', 'APP_PACKETS', 
-                                 'DNS_QUERY_TIMES']]
         
-        data_inf_cat = data_inf[['CHARSET', 'SERVER', 'WHOIS_COUNTRY', 'WHOIS_STATEPRO']]
+        # check for luas bangunan must be smaller than luas tanah
+        if luas_bangunan > luas_tanah:
+            st.warning('Luas Bangunan tidak boleh lebih besar dari Luas Tanah')
+            st.stop()
         
-        # scaling and encoding
-        data_inf_num_scaled = scaler.transform(data_inf_num)
-        
-        # encode categorical data
-        data_inf_cat_encoded = encoder.transform(data_inf_cat)
-        
-        # transform to dataframe
-        # data_inf_num_scaled = pd.DataFrame(data_inf_num_scaled, columns=data_inf_num.columns)
+        # show data_inf
+        st.dataframe(data_inf)
 
-        # concat all data 
-        data_inf_final = pd.concat([data_inf_num_scaled, data_inf_cat_encoded], axis=1)
+        # scaling and encoding with transformer
+        data_inf_final = transformer.transform(data_inf)
         
-        # if len(column_names) != len(set(column_names)):
-        #     st.write("column_names contains duplicates")
-            
-        # if len(data_inf_final.columns) != len(set(data_inf_final.columns)):
-        #     st.write("data_inf_final has duplicate column names")
-
-        # Check Missing Values
-        data_inf_final.isnull().sum()
-
-        # fill null value with zeros
-        data_inf_final = data_inf_final.fillna(0)
-        
-        #predict using model
+        # predict using model
         y_pred_inf = model.predict(data_inf_final)
         
-        st.dataframe(data_inf)
-        
-        if y_pred_inf == 0:
-            # write with green color the predicted price
-            st.markdown(f'<p style="color: green;">Predicted Price: {y_pred_inf[0]}</p>', unsafe_allow_html=True)
+        if y_pred_inf[0] > 1000:
+            y_pred_inf[0] = y_pred_inf[0] / 1000
+            final = round(y_pred_inf[0], 2)
+            st.markdown(f'<p style="color: green; text-align: center; font-size: 50px;">Predicted Price: {final:.2f} Milyar</p>', unsafe_allow_html=True)
+            
+            # get random 10 listing form clean_data_fix.csv based on the price and show it to user both the image, hyperlink, and the price
+            st.write('**10 Random Listing**')
+            clean_data_fix = pd.read_csv('clean_data_fix.csv')
+            clean_data_fix = clean_data_fix[clean_data_fix['Harga'] > y_pred_inf[0] * 1000]
+            
+            # filter 10 random listing with price around 10% of the predicted price both lower and upper
+            clean_data_fix = clean_data_fix[(clean_data_fix['Harga'] > y_pred_inf[0] * 1000 * 0.8) & (clean_data_fix['Harga'] < y_pred_inf[0] * 1000 * 1.2)]
+            
+            # if there is no listing, show warning to user that cant find example in the price range
+            if clean_data_fix.shape[0] == 0:
+                st.warning('Tidak ada listing yang mirip dengan range harga')
+                st.stop()      
+            
+            # get 10 random listing
+            clean_data_fix = clean_data_fix.sample(10)
+            
+            for i in range(10):
+                # the image in hyperlink, so load the image and show it to user
+                st.write(f'**Listing {i+1}**')
+                st.image(clean_data_fix.iloc[i]['Img_Hyperlink'], use_column_width=True)
+                # divide {clean_data_fix.iloc[i]["Harga"]} by 1000 to convert from Juta to Milyar
+                Harga_list = clean_data_fix.iloc[i]["Harga"]/1000
+                st.write(f'**Price: {Harga_list} Milyar**')
+                st.write(f'**Link: {clean_data_fix.iloc[i]["Hyperlink"]}**')
+                            
+        else:
+            final = round(y_pred_inf[0], 3)
+            st.markdown(f'<p style="color: green; text-align: center; font-size: 50px;">Predicted Price: {final:.4f} Juta</p>', unsafe_allow_html=True)
+            
+            # get random 10 listing form clean_data_fix.csv based on the price and show it to user both the image, hyperlink, and the price
+            st.write('**10 Random Listing**')
+            clean_data_fix = pd.read_csv('clean_data_fix.csv')
+            clean_data_fix = clean_data_fix[clean_data_fix['Harga'] > y_pred_inf[0]]
+            
+            # filter 10 random listing with price around 10% of the predicted price both lower and upper
+            clean_data_fix = clean_data_fix[(clean_data_fix['Harga'] > y_pred_inf[0] * 0.8) & (clean_data_fix['Harga'] < y_pred_inf[0] * 1.2)]
+            
+            # if there is no listing, show warning to user that cant find example in the price range
+            if clean_data_fix.shape[0] == 0:
+                st.warning('Tidak ada listing yang mirip dengan range harga')
+                st.stop()      
+            
+            # get 10 random listing
+            clean_data_fix = clean_data_fix.sample(10)
+            
+            for i in range(10):
+                # the image in hyperlink, so load the image and show it to user
+                st.write(f'**Listing {i+1}**')
+                st.image(clean_data_fix.iloc[i]['Img_Hyperlink'], use_column_width=True)
+                st.write(f'**Price: {clean_data_fix.iloc[i]["Harga"]} Juta**')
+                st.write(f'**Link: {clean_data_fix.iloc[i]["Hyperlink"]}**')
         
 if __name__ == '__main__':
     app()
