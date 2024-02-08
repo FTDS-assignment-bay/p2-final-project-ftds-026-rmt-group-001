@@ -21,7 +21,7 @@ def run():
     st.markdown('----')
 
     st.header('Comparision House Price Based On Area')
-    image = Image.open('EDA01.png')
+    image = Image.open('EDA11.png')
     st.image(image)
     with st.expander("**Insight** :"):
         st.caption(
@@ -31,17 +31,20 @@ def run():
             ''')
 
     st.header('Averages House Price Based On Location')
-    image = Image.open('EDA9.png')
+    image = Image.open('EDA1.png')
     st.image(image)
     with st.expander("**Insight** :"):
         st.caption(
             '''
-            The Balikpapan city area stands out with the highest average house price. This trend can be attributed to the advantageous locations of properties in urban areas, 
-            which typically command higher selling values and present greater profit potential.
+            1. The Balikpapan city area exhibits the highest house prices compared to other regions, boasting an estimated average house price of IDR 2.4 billion. This can be attributed to its central location, 
+            making it unsurprising that the housing prices in this area rank among the most expensive.
+
+            2. Conversely, the East Balikpapan area displays the lowest house prices based on the provided data, with an estimated average price of IDR 1.3 billion. 
+            This disparity may be linked to the East Balikpapan area's distance from the city center.
             ''')
         
     st.header('Type of Certificate')
-    image = Image.open('EDA7.png')
+    image = Image.open('EDA9.png')
     st.image(image)
     with st.expander("**Insight** :"):
         st.caption(
@@ -49,17 +52,26 @@ def run():
             From 3 type of sertifikat, the Sertifikat Hak Milik is have 86% distibution thus making it the most common type of certificate in home sales.
             ''')
 
-    st.header('Comparasion House Price Based On Room')
-    image = Image.open('EDA02.png')
+    st.header('Most locations selling houses')
+    image = Image.open('EDA8.png')
     st.image(image)
     with st.expander("**Insight** :"):
         st.caption(
             '''
-            An increase in the count of bedrooms or bathrooms is associated with a higher expected house price.
+            From the bar chart, most of sell house locations are in the South Balikpapan area.
             ''')
 
-    st.header('Correlation Feature')
+    st.header('Comparasion House Price Based On Furniture Condition')
     image = Image.open('EDA10.png')
+    st.image(image)
+    with st.expander("**Insight** :"):
+        st.caption(
+            '''
+            Most furniture condition is unknown, it is because most of the seller did not fill the data.
+            ''')
+        
+    st.header('Correlation Feature')
+    image = Image.open('EDA12.png')
     st.image(image)
     with st.expander("**Insight** :"):
         st.caption(
@@ -68,33 +80,6 @@ def run():
             This suggests that changes or variations in these features are closely associated with corresponding changes in the house prices.
             ''')
         
-    st.header('Histogram of Some Column')
-    with st.expander("Harga"):
-        image = Image.open('EDA1.png')
-        st.image(image)
-        st.write(''' ''')
-
-    with st.expander("Kamar Tidur"):
-        image = Image.open('EDA2.png')
-        st.image(image)
-        st.write(''' ''')
-
-    with st.expander("Kamar Mandi"):
-        image = Image.open('EDA3.png')
-        st.image(image)
-        st.write(''' ''')
-
-    with st.expander("Luas Tanah"):
-        image = Image.open('EDA4.png')
-        st.image(image)
-        st.write(''' ''')
-        
-    with st.expander("Luas Bangunan"):
-        image = Image.open('EDA5.png')
-        st.image(image)
-        st.write(''' ''')    
-
-
 
 if __name__ == '__main__':
     run()
