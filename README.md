@@ -35,6 +35,6 @@ The model used for this detection is XGBRegressor Regression Model which Hyperpa
 # Meet our team
  - Masayu Anandita Prameswari | [LinkedIn](https://www.linkedin.com/in/masayuanandita-/) | [Github](https://github.com/masayuanandita)
  - Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)
- - Ade William Tabrani | [LinkedIn] | [Github]
+ - Ade William Tabrani | [LinkedIn](https://www.linkedin.com/in/ade-william-tabrani/) | [Github](https://github.com/AdeWT/)
  - Mardhya Malik Nurbani | [LinkedIn](https://www.linkedin.com/in/mnurbani/) | [Github](https://github.com/mnurbani97)
 
