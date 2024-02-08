@@ -2,23 +2,25 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import xgboost
+from PIL import Image
 from joblib import load
 
 # load all files
 model = load('xgb_tuned_model.joblib')
 transformer = load('transformer.joblib')
 
-def app():
-    
+def run():
     with st.form('from_website_data'):
         # write short description about the model
         st.write('''
-        # **IKN Property Model**
-        - The model used for this detection is `...` Regression which Hyperparameter have been tuned.
-        - This model achieved `...` score ....
+        # **IKN Property Prediction**
+        - The model used for this Regression is `XGBRegressor` Model which Hyperparameter have been tuned.
+        - This model achieved `88%` R² Train Score and `83%` R² Test Score.
         ''')
         
-        
+        #Tambahkan gambar
+        image = Image.open('IKN_LOGO2.png')
+        st.image(image) 
                 
         sertifikat_choice = {'SHM': 'SHM - Sertifikat Hak Milik', 'HGB': 'HGB - Hak Guna Bangunan', 'Lainnya': 'Lainnya (PPJB, Girik, Adat, dll)'}
 
@@ -116,49 +118,101 @@ def app():
             # filter 10 random listing with price around 10% of the predicted price both lower and upper
             clean_data_fix = clean_data_fix[(clean_data_fix['Harga'] > y_pred_inf[0] * 1000 * 0.8) & (clean_data_fix['Harga'] < y_pred_inf[0] * 1000 * 1.2)]
             
+            # first get the key of the lokasi
+            for key, value in lokasi_choice.items():
+                if value == lokasi:
+                    lokasi = key
+                    break
+            
+            # filter by same lokasi based on the key
+            clean_data_fix = clean_data_fix[clean_data_fix['Lokasi'] == lokasi]
+                        
+            # if 10 random listing is not enough from the same lokasi, then add the rest from random other lokasi
+            if clean_data_fix.shape[0] < 10:
+                # filter first by price range
+                clean_data_fix_additional = pd.read_csv('clean_data_fix.csv')
+                clean_data_fix_additional = clean_data_fix_additional[clean_data_fix_additional['Harga'] > y_pred_inf[0] * 1000]
+                clean_data_fix_additional = clean_data_fix_additional[(clean_data_fix_additional['Harga'] > y_pred_inf[0] * 1000 * 0.8) & (clean_data_fix_additional['Harga'] < y_pred_inf[0] * 1000 * 1.2)]
+                # filter by different lokasi
+                clean_data_fix_additional = clean_data_fix_additional[clean_data_fix_additional['Lokasi'] != lokasi]
+                # get the rest of the 10 random listing
+                if clean_data_fix_additional.shape[0] > 10 - clean_data_fix.shape[0]:
+                    clean_data_fix_additional = clean_data_fix_additional.sample(10 - clean_data_fix.shape[0])
+                # combine the 10 random listing from the same lokasi and the rest from different lokasi
+                clean_data_fix = pd.concat([clean_data_fix, clean_data_fix_additional])
+            else:
+                clean_data_fix = clean_data_fix.sample(10)
+                
             # if there is no listing, show warning to user that cant find example in the price range
-            if clean_data_fix.shape[0] == 0:
+            if clean_data_fix.shape[0] == 0:   
                 st.warning('Tidak ada listing yang mirip dengan range harga')
-                st.stop()      
-            
-            # get 10 random listing
-            clean_data_fix = clean_data_fix.sample(10)
-            
+                st.stop()
+                
+            # Create a list of tabs
+            tabs = st.tabs([f'Listing {i+1}' for i in range(10)])
+
             for i in range(10):
-                # the image in hyperlink, so load the image and show it to user
-                st.write(f'**Listing {i+1}**')
-                st.image(clean_data_fix.iloc[i]['Img_Hyperlink'], use_column_width=True)
-                # divide {clean_data_fix.iloc[i]["Harga"]} by 1000 to convert from Juta to Milyar
-                Harga_list = clean_data_fix.iloc[i]["Harga"]/1000
-                st.write(f'**Price: {Harga_list} Milyar**')
-                st.write(f'**Link: {clean_data_fix.iloc[i]["Hyperlink"]}**')
-                            
+                # Define the content for each tab
+                with tabs[i]:
+                    st.image(clean_data_fix.iloc[i]["Img_Hyperlink"], width=None)
+                    st.write(f'**Price:** {clean_data_fix.iloc[i]["Harga"]/1000} Milyar')
+                    st.write(f'**Location:** {clean_data_fix.iloc[i]["Lokasi"]}')
+                    st.markdown(f'**Link:** [Click here]({clean_data_fix.iloc[i]["Hyperlink"]})')
         else:
             final = round(y_pred_inf[0], 3)
             st.markdown(f'<p style="color: green; text-align: center; font-size: 50px;">Predicted Price: {final:.4f} Juta</p>', unsafe_allow_html=True)
             
-            # get random 10 listing form clean_data_fix.csv based on the price and show it to user both the image, hyperlink, and the price
+            # Get random 10 listings from clean_data_fix.csv based on the price and show them to the user, including image, hyperlink, and price
             st.write('**10 Random Listing**')
             clean_data_fix = pd.read_csv('clean_data_fix.csv')
             clean_data_fix = clean_data_fix[clean_data_fix['Harga'] > y_pred_inf[0]]
             
-            # filter 10 random listing with price around 10% of the predicted price both lower and upper
+            # Filter 10 random listings with a price around 10% of the predicted price both lower and upper
             clean_data_fix = clean_data_fix[(clean_data_fix['Harga'] > y_pred_inf[0] * 0.8) & (clean_data_fix['Harga'] < y_pred_inf[0] * 1.2)]
             
-            # if there is no listing, show warning to user that cant find example in the price range
+            # If there are no listings, show a warning to the user that there are no listings in the price range
             if clean_data_fix.shape[0] == 0:
                 st.warning('Tidak ada listing yang mirip dengan range harga')
-                st.stop()      
+                st.stop()
             
-            # get 10 random listing
-            clean_data_fix = clean_data_fix.sample(10)
+            # first get the key of the lokasi
+            for key, value in lokasi_choice.items():
+                if value == lokasi:
+                    lokasi = key
+                    break
             
+            # Filter by the same location
+            clean_data_fix_same_loc = clean_data_fix[clean_data_fix['Lokasi'] == lokasi]
+            
+            # If there are not enough listings with the same location, get additional listings from different locations
+            if clean_data_fix_same_loc.shape[0] < 10:
+                # Filter first by price range
+                clean_data_fix_additional = pd.read_csv('clean_data_fix.csv')
+                clean_data_fix_additional = clean_data_fix_additional[clean_data_fix_additional['Harga'] > y_pred_inf[0]]
+                clean_data_fix_additional = clean_data_fix_additional[(clean_data_fix_additional['Harga'] > y_pred_inf[0] * 0.8) & (clean_data_fix_additional['Harga'] < y_pred_inf[0] * 1.2)]
+                
+                # Filter by different location
+                clean_data_fix_additional = clean_data_fix_additional[clean_data_fix_additional['Lokasi'] != lokasi]
+                
+                # Get the rest of the 10 random listings
+                if clean_data_fix_additional.shape[0] > 10 - clean_data_fix_same_loc.shape[0]:
+                    clean_data_fix_additional = clean_data_fix_additional.sample(10 - clean_data_fix_same_loc.shape[0])
+                
+                # Combine the 10 random listings from the same location and the rest from different locations
+                clean_data_fix = pd.concat([clean_data_fix_same_loc, clean_data_fix_additional])
+            else:
+                clean_data_fix = clean_data_fix_same_loc.sample(10)
+
+            # Display the listings using a tab structure
+            tabs = st.tabs([f'Listing {i+1}' for i in range(10)])
+
             for i in range(10):
-                # the image in hyperlink, so load the image and show it to user
-                st.write(f'**Listing {i+1}**')
-                st.image(clean_data_fix.iloc[i]['Img_Hyperlink'], use_column_width=True)
-                st.write(f'**Price: {clean_data_fix.iloc[i]["Harga"]} Juta**')
-                st.write(f'**Link: {clean_data_fix.iloc[i]["Hyperlink"]}**')
+                # Define the content for each tab
+                with tabs[i]:
+                    st.image(clean_data_fix.iloc[i]["Img_Hyperlink"], use_column_width=True)
+                    st.write(f'**Price:** {clean_data_fix.iloc[i]["Harga"]} Juta')
+                    st.markdown(f'**Location:** {clean_data_fix.iloc[i]["Lokasi"]}')
+                    st.markdown(f'**Link:** [Click here]({clean_data_fix.iloc[i]["Hyperlink"]})')
         
 if __name__ == '__main__':
     app()
