@@ -17,12 +17,10 @@ The dataset used to build the house price prediction model for the IKN area is o
 
 # Conclusion 
 1. EDA Conclusion :
-                 
-                The analysis of the dataset reveals several key trends in the Balikpapan real estate market. Most houses feature land and building areas below 500 square meters, and larger areas correlate with higher prices. Balikpapan city commands the highest average house prices (IDR 2.4 billion) due to its central location, while the East Balikpapan area, farther from the city center, shows the lowest prices (IDR 1.3 billion). Ownership Certificate is the most common certificate type in home sales, constituting 86% of transactions. The majority of houses for sale are situated in the South Balikpapan area. Furniture condition data is often missing, and a strong correlation exists between Building Area, Land Area, Bedrooms, and house prices, indicating their impact on property values. 
+The analysis of the dataset reveals several key trends in the Balikpapan real estate market. Most houses feature land and building areas below 500 square meters, and larger areas correlate with higher prices. Balikpapan city commands the highest average house prices (IDR 2.4 billion) due to its central location, while the East Balikpapan area, farther from the city center, shows the lowest prices (IDR 1.3 billion). Ownership Certificate is the most common certificate type in home sales, constituting 86% of transactions. The majority of houses for sale are situated in the South Balikpapan area. Furniture condition data is often missing, and a strong correlation exists between Building Area, Land Area, Bedrooms, and house prices, indicating their impact on property values. 
 
 2. Model Conclusion :
-                 
-                The model used for this detection is XGBRegressor Regression Model which Hyperparameter have been tuned. And the model achieved 88% R² Train Score and 83% R² Test Score.
+The model used for this detection is XGBRegressor Regression Model which Hyperparameter have been tuned. And the model achieved 88% R² Train Score and 83% R² Test Score.
 
 # Recommendation 
 1. Given the strong correlation between house features (Luas Bangunan, Luas Tanah, Kamar Tidur) and prices, real estate developers or sellers may consider focusing on properties with larger and well-designed living spaces. Emphasizing these features in marketing materials could attract potential buyers seeking spacious and comfortable homes.
