@@ -54,7 +54,7 @@ if page == 'Homepage':
     with st.expander("Meet our team"):
         st.write("- Masayu Anandita Prameswari | [LinkedIn](https://www.linkedin.com/in/masayuanandita-/) | [Github](https://github.com/masayuanandita)")
         st.write("- Gilbert Kurniawan Hariyanto | [LinkedIn](https://www.linkedin.com/in/gilbert-kurniawan-h/) | [Github](https://github.com/gilbertk27)")
-        st.write("- Ade William Tabrani | [LinkedIn] () | [Github] () ")
+        st.write("- Ade William Tabrani | [LinkedIn] (https://www.linkedin.com/in/ade-william-tabrani/) | [Github] (https://github.com/AdeWT/) ")
         st.write("- Mardhya Malik Nurbani | [LinkedIn](https://www.linkedin.com/in/mnurbani/) | [Github](https://github.com/mnurbani97)")
 
 elif page == 'Exploration Data Analysis':
