@@ -29,7 +29,7 @@ The model used for this detection is XGBRegressor Regression Model which Hyperpa
                  
 3.  Additionally, since Sertifikat Hak Milik is the most common certificate type, real estate professionals should streamline processes related to this type of certificate to facilitate smoother transactions. Providing clear information and guidance on certificate-related matters can build trust and simplify the buying process for potential customers.
 
-# Try IKN PROPERTY here
+# Try IKN PROPERTY [HERE](https://huggingface.co/spaces/xyncz/IKN-Price-Prediction)
 
 
 # Meet our team
